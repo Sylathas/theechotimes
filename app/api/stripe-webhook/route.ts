@@ -2,11 +2,10 @@
 // Stripe calls this after a payment. It saves the order and lowers the stock.
 import Stripe from "stripe";
 import { FieldValue } from "firebase-admin/firestore";
-import { adminDb, PRODUCTS_COLLECTION } from "@/app/lib/firebase/admin";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import { getAdminDb, PRODUCTS_COLLECTION } from "@/app/lib/firebase/admin";
 
 export async function POST(req: Request) {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
     // The signature proves the request came from Stripe. Checking it needs the raw, unparsed body.
     const body = await req.text();
     let event: Stripe.Event;
@@ -24,6 +23,7 @@ export async function POST(req: Request) {
 }
 
 async function recordOrder(session: Stripe.Checkout.Session) {
+    const adminDb = getAdminDb();
     const items = (session.metadata?.items ?? "").split(",").filter(Boolean).map((entry) => {
         const [id, quantity] = entry.split(":");
         return { id, quantity: Number(quantity) };

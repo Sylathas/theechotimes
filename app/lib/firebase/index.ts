@@ -39,7 +39,6 @@ export const getArticle = async (zine: any, article: any) => {
 };
 
 export const getModification = async (zine: any, article: any, modification: any) => {
-    console.log(zine, article, modification)
     const snapshot = await getDocs(query(
         collection(db, "zines", zine.id, "articles", article.id, "versions", modification.id, "modifications"),
         orderBy("created")

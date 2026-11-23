@@ -1,9 +1,7 @@
 // Save as: app/api/checkout/route.ts
 // Receives the basket, checks it against Firestore and returns the address of a Stripe payment page.
 import Stripe from "stripe";
-import { adminDb, PRODUCTS_COLLECTION } from "../../lib/firebase/admin";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import { getAdminDb, PRODUCTS_COLLECTION } from "../../lib/firebase/admin";
 
 const CURRENCY = "gbp";
 
@@ -18,6 +16,8 @@ type Zone = keyof typeof ZONES;
 type BasketItem = { id: string; quantity: number };
 
 export async function POST(req: Request) {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const adminDb = getAdminDb();
     const { items, zone } = (await req.json()) as { items: BasketItem[]; zone: Zone };
 
     const shipping = ZONES[zone];

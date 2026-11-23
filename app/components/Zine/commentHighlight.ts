@@ -63,8 +63,6 @@ export function useCommentHighlights(
             .map((comment) => getCommentRange(container, comment))
             .filter((range): range is Range => range !== null);
 
-        console.log(ranges);
-
         CSS.highlights.set("comments", new Highlight(...ranges));
         return () => {
             CSS.highlights.delete("comments");
