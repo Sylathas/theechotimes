@@ -1,0 +1,442 @@
+@font-face {
+    font-family: 'Snell';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/SnellRoundhand-Black-03.ttf') format('truetype'),
+}
+
+@font-face {
+    font-family: 'Vulf Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/Vulf_Mono-Regular_web.ttf') format('truetype'),
+}
+
+@font-face {
+    font-family: 'Vulf Mono';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/Vulf_Mono-Italic_web.ttf') format('truetype'),
+}
+
+.image-pixelated {
+    /* Firefox */
+    image-rendering: crisp-edges;
+    /* Chromium + Safari */
+    image-rendering: pixelated;
+}
+
+body {
+    background-color: white;
+}
+
+/*-------*/
+/*OVERLAY*/
+/*-------*/
+
+#lift-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100dvw;
+    height: 100dvh;
+}
+
+.overlayLiftDoors {
+    transition: transform 1s linear;
+}
+
+#overlayLiftDoorL {
+    left: 11.5%;
+}
+
+#overlayLiftDoorR {
+    right: 11%;
+}
+
+.animOverlayDoorOpenL {
+    transform: translateX(-130%);
+}
+
+.animOverlayDoorOpenR {
+    transform: translateX(125%);
+}
+
+.animOverlayDoorOpenLMobile {
+    transform: translateX(-30%);
+}
+
+.animOverlayDoorOpenRMobile {
+    transform: translateX(30%);
+}
+
+.overlayLiftDoorsTwo {
+    transition: transform .3s;
+}
+
+.overlaydxClosed {
+    transform: translateX(81%);
+}
+
+.overlaydxOpen {
+    transform: translateX(50%);
+}
+
+.overlaysxClosed {
+    transform: translateX(-80%);
+}
+
+.overlaysxOpen {
+    transform: translateX(-50%);
+}
+
+#loginButton {
+    opacity: .5;
+}
+
+#login:hover #loginButton {
+    opacity: 1;
+}
+
+/*-------*/
+/*BUTTONS*/
+/*-------*/
+
+.buttonsClosed {
+    transform: translateX(-120%);
+}
+
+.buttonsOpen {
+    transform: translateX(0%);
+}
+
+.loginClosed {
+    transform: translateX(140%);
+}
+
+.loginOpen {
+    transform: translateX(0%);
+}
+
+/*-----*/
+/*FLOOR*/
+/*-----*/
+
+.floorLift {
+    cursor: pointer;
+}
+
+#zineOpen {
+    opacity: 0;
+    transition: opacity .3s;
+    cursor: pointer;
+}
+
+.liftdoorfloor {
+    transition: transform .5s linear;
+}
+
+#lockedDoor {
+    opacity: 0;
+    transition: .2s linear;
+}
+
+#floorLiftOpen:hover #liftDoorLeft1 {
+    transform: translateX(-50%);
+}
+
+#floorLiftOpen:hover #liftDoorRight1 {
+    transform: translateX(50%);
+}
+
+#floorLiftOpen:hover #liftDoorLeft2 {
+    transform: translateX(-60%);
+}
+
+#floorLiftOpen:hover #liftDoorRight2 {
+    transform: translateX(60%);
+}
+
+#floorLiftOpen:hover #zineOpen {
+    opacity: 1;
+}
+
+#floorLiftClosed:hover #lockedDoor {
+    opacity: 1
+}
+
+/*-------*/
+/*Floor 1*/
+/*-------*/
+
+.floor,
+.floor div {
+    background-color: none;
+    transition: .2s linear;
+    cursor: pointer;
+}
+
+.floor2:hover,
+.floor2:hover div {
+    background-color: limegreen;
+}
+
+.floor1:hover,
+.floor1:hover div {
+    background-color: red;
+}
+
+#bathroom {
+    transform: rotate(2deg)
+}
+
+#office {
+    transform: rotate(-4deg)
+}
+
+#bookshelf {
+    transform: rotate(6deg)
+}
+
+#cloakroom {
+    transform: rotate(2deg)
+}
+
+#equipmentRoom {
+    transform: rotate(-4deg)
+}
+
+#smokingArea {
+    transform: rotate(1deg)
+}
+
+/*------*/
+/*-Zine-*/
+/*------*/
+
+.zineButtonCell {
+    flex: 1;
+    margin: 2%;
+}
+
+.zineButton {
+    opacity: .8;
+    cursor: pointer;
+}
+
+.zineButton:hover {
+    opacity: 1;
+
+}
+
+#articleName {
+    font-size: 15pt;
+    transform: scale(150%, 80%)
+}
+
+#text {
+    font-family: 'Vulf Mono';
+    font-size: 10pt;
+    color: black;
+}
+
+#author {
+    font-size: 20pt;
+}
+
+.vulf {
+    font-family: 'Vulf Mono';
+}
+
+.commentButton {
+    transition: transform .3s;
+}
+
+.commentButton {
+    transition: transform .3s;
+}
+
+/*------*/
+/*MODIFY*/
+/*-----*/
+
+.modifyButton {
+    height: 9%;
+    width: 70%;
+    margin: 0 5% 0 5%;
+    background-color: white;
+    transition: transform .3s;
+    padding: 5%;
+}
+
+.modifyButton:hover {
+    background-color: red;
+    transform: scale(105%);
+}
+
+.article h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0.6em 0 0.4em;
+}
+
+.article h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 0.6em 0 0.4em;
+}
+
+.article h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0.6em 0 0.4em;
+}
+
+.article p {
+    margin-bottom: 1em;
+}
+
+.article ul {
+    list-style: disc;
+    padding-left: 1.5em;
+}
+
+.article ol {
+    list-style: decimal;
+    padding-left: 1.5em;
+}
+
+.article blockquote {
+    border-left: 3px solid currentColor;
+    padding-left: 1em;
+    font-style: italic;
+}
+
+.article a {
+    text-decoration: underline;
+}
+
+.article .ProseMirror {
+    outline: none;
+}
+
+/*-----*/
+/*ABOUT*/
+/*-----*/
+
+#credits {
+    font-size: 12pt;
+    color: black;
+    transform: scale(200%, 100%);
+    line-height: 2;
+}
+
+#credits a {
+    color: red;
+    text-decoration: underline;
+    transition: .3s;
+}
+
+#credits a:hover {
+    transform: scale(1.1);
+}
+
+/*-----*/
+/*LOGIN*/
+/*-----*/
+
+#modal {
+    transition: .3s;
+}
+
+.modalsection0 {
+    height: 60%;
+    top: 20%;
+}
+
+.modalsection1 {
+    height: 70%;
+    top: 15%;
+}
+
+.modalsection2 {
+    height: 90%;
+    top: 5%;
+}
+
+.modalsection3 {
+    height: 50%;
+    top: 22.5%;
+}
+
+.modalsection4 {
+    height: 70%;
+    top: 15%;
+}
+
+#close {
+    transition: .3s;
+}
+
+.closesection0 {
+    top: 20%;
+}
+
+.closesection1 {
+    top: 15%;
+}
+
+.closesection2 {
+    top: 7%;
+}
+
+.closesection3 {
+    top: 22.5%;
+}
+
+.closesection4 {
+    top: 15%;
+}
+
+.authinput {
+    font-size: 15pt;
+    font-family: "Vulf Mono";
+}
+
+.authinput:focus {
+    outline: none;
+}
+
+.authbutton {
+    opacity: .9;
+    transition: transform .3s;
+}
+
+.authbutton:hover {
+    opacity: 1;
+    transform: scale(1.05, 1.05);
+}
+
+.errorText {
+    font-family: "Vulf Mono";
+    color: red;
+}
+
+/*----*/
+/*SHOP*/
+/*----*/
+
+.shopSection {
+    transition: 1s;
+    transform: translateY(0);
+}
+
+.shopCategories {
+    transition: .3s;
+}
+
+.shopCategories:hover {
+    transform: scale(105%);
+}
