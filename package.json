@@ -19,6 +19,7 @@
     "approve": "^0.0.12",
     "firebase": "^13.0.0",
     "firebase-admin": "^14.5.1",
+    "jose": "^6.2.18",
     "next": "16.4.6",
     "protobufjs": "^8.8.1",
     "react": "19.3.0",

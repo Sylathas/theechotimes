@@ -1,6 +1,7 @@
 // Save as: app/api/redeem-code/route.ts
 // Checks a zine code on the server, marks it as used and unlocks the zine on the user's profile.
-import { getAdminAuth, getAdminDb } from "../../lib/firebase/admin";
+import { getAdminDb } from "../../lib/firebase/admin";
+import { verifyUser } from "../../lib/firebase/verifyUser";
 
 const ZINES = ["zine1", "zine2"]; // document IDs in the zinecodes collection, matching the profile fields
 
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
     const token = req.headers.get("authorization")?.replace(/^Bearer /, "");
     let uid: string;
     try {
-        uid = (await getAdminAuth().verifyIdToken(token ?? "")).uid;
+        uid = await verifyUser(token ?? "");
     } catch {
         return Response.json({ error: "Log in to redeem a code." }, { status: 401 });
     }

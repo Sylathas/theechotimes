@@ -156,15 +156,15 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                     </div>
                     : <div className={isMobile ? "absolute w-full h-[70%] top-[10%] overflow-y-scroll flex flex-col items-center justify-center" : ""}>
                         <div id='tankTopPink' className={"shopCategories " + (isMobile ? "h-[30%] w-[30%] mt-[60%]" : "absolute h-[30%] w-[15%] left-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[2]) }}>
-                            <img className="w-full h-full" src={productData?.[2].cover}></img>
+                            <img className="w-auto h-full" src={productData?.[2].cover}></img>
                             <p className="font-serif">{productData?.[2].name}</p>
                         </div>
                         <div id='teeGreenM' className={"shopCategories " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[1]) }}>
-                            <img className="w-full h-full" src={productData?.[1].cover}></img>
+                            <img className="w-auto h-full" src={productData?.[1].cover}></img>
                             <p className="font-serif">{productData?.[1].name}</p>
                         </div>
                         <div id='teeGreenL' className={"shopCategories " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[40%] bottom-[25%]")} onClick={() => { openProduct(productData?.[0]) }}>
-                            <img className="w-full h-full" src={productData?.[0].cover}></img>
+                            <img className="w-auto h-full" src={productData?.[0].cover}></img>
                             <p className="font-serif">{productData?.[0].name}</p>
                         </div>
                     </div>
@@ -216,7 +216,7 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                             <>
                                 <div id='cartProducts' className="absolute left-[5%] top-[5%] h-[70%] w-[90%] flex flex-col overflow-y-auto">
                                     {basket.map((product: any) => (
-                                        <div key={product.id} className={"h-[20%] w-full mb-[5%] flex shrink-0 text-black font-serif items-center justify-between " + (isMobile && "flex-col")}>
+                                        <div key={product.id} className={"h-[20%] w-full mb-[50%] flex shrink-0 text-black font-serif items-center justify-between " + (isMobile && "flex-col")}>
                                             <img src={product.cover} className="h-full w-auto" />
                                             <span>{product.name}{product.quantity > 1 && ` ×${product.quantity}`}</span>
                                             <span>{formatPrice(product.price * product.quantity)}</span>
