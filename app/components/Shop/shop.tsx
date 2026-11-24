@@ -175,7 +175,7 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                 <div id="section3" className="absolute inset-0 w-full h-full z-1000">
                     <div className="w-full h-full bg-black opacity-80"></div>
                     {isMobile && <div id='productNameMobile' className="absolute w-full top-[3%] font-serif text-[20px] text-center text-black bg-white px-[20px]">{productOpen?.name}</div>}
-                    <div id='images' className={"absolute overflow-x-scroll flex justify-center flex-nowrap " + (isMobile ? "left-[15%] top-[15%] h-[35%] w-[70%]" : "left-[25%] bottom-[36%] h-[50%] w-[50%]")}>
+                    <div id='images' className={"absolute overflow-x-scroll flex flex-nowrap " + (isMobile ? "left-[15%] top-[15%] h-[35%] w-[70%]" : "left-[25%] bottom-[36%] h-[50%] w-[50%]")}>
                         <img className="h-full w-auto mr-[5%] shrink-0" src={productOpen?.cover}></img>
                         {productOpen?.images?.map((image: string, index: number) => (
                             <img key={`${image}-${index}`} className="h-full w-auto mr-[5%] shrink-0" src={image} />
