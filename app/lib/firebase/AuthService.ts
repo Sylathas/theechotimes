@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from 'firebase/auth';
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { auth, db, zineCodes } from './index';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from './index';
 import { UserProfile } from "../../interfaces/interfaces"
 
 interface LoginFormValues {
@@ -32,14 +32,17 @@ export const firebaseSignUp = async ({
 }: UserFormValues) => {
     const { user } = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(user, { displayName });
-    const unlocks = await resolveZineCode({ zineCode });
-    const profile: UserProfile = {
-        displayName,
-        email,
-        zine1: unlocks.zine1,
-        zine2: unlocks.zine2,
-    };
+    // Every profile starts with all zines locked; the security rules only allow this
+    const profile: UserProfile = { displayName, email, zine1: false, zine2: false };
     await setDoc(doc(db, "users", user.uid), profile);
+    if (zineCode?.trim()) {
+        // A wrong code shouldn't stop the account being made: they can try again from their account page
+        try {
+            await redeemZineCode(zineCode);
+        } catch (error) {
+            console.warn("Zine code not redeemed at sign-up:", error);
+        }
+    }
     return { user, profile };
 };
 
@@ -48,33 +51,16 @@ export const firebaseSignOut = async () => {
     await signOut(auth);
 };
 
-export const resolveZineCode = async ({
-    zineCode,
-}: {
-    zineCode: string;
-}) => {
-    const codes = await zineCodes();
-    const unlocks = { zine1: false, zine2: false };
-    if (!zineCode) return unlocks;
-    for (const zine of codes) {
-        const entries = zine.codes ?? {};
-        for (const [key, entry] of Object.entries(entries)) {
-            if (entry.code !== zineCode || entry.utilised) continue;
-            if (zine.id === "zine1" || zine.id === "zine2") {
-                unlocks[zine.id] = true;
-            }
-            await updateDoc(doc(db, "zinecodes", zine.id), {
-                [`codes.${key}.utilised`]: true,
-            });
-            return unlocks;
-        }
-    }
-    return unlocks;
-};
-
-export const redeemZineCode = async (uid: string, zineCode: string) => {
-    const unlocks = await resolveZineCode({ zineCode });
-    const changes = Object.fromEntries(Object.entries(unlocks).filter(([, unlocked]) => unlocked));
-    if (Object.keys(changes).length === 0) throw new Error("This code is invalid or has already been used.");
-    await updateDoc(doc(db, "users", uid), changes);
+// Sends the code to the server, which checks it and unlocks the zine
+export const redeemZineCode = async (zineCode: string) => {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Log in to redeem a code.");
+    const res = await fetch("/api/redeem-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${await user.getIdToken()}` },
+        body: JSON.stringify({ code: zineCode }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error ?? "The code couldn't be checked. Try again in a moment.");
+    return data.zine as string;
 };

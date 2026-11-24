@@ -46,15 +46,15 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
             </div>
         )
     } else if (room === 4) {
-        return (
-            <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white">
-                <img className="w-full h-full" src={floorImage} alt={`Image of the active room: ${room}`}></img>
-                <img className={"absolute rotate-[3deg] " + (isMobile ? "top-[1%] left-[5%] w-[90%] h-[13%]" : "top-[3%] left-[25%] w-[50%] h-[15%]")} src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
-                <div className={"absolute " + (isMobile ? "top-[40%] left-[20%] h-[35%] w-[80%]" : "top-[48%] left-[20%] h-[35%] w-[50%]")}>
+        return !isMobile ? (
+            <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white overflow-scroll-x" >
+                <img className="absolute w-full h-full" src={floorImage} alt={`Image of the active room: ${room}`}></img>
+                <img className="absolute rotate-[3deg] top-[3%] left-[25%] w-[50%] h-[15%]" src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
+                <div className="absolute top-[48%] left-[20%] h-[35%] w-[50%]">
                     <img className="w-full h-full" src="./rooms/about/postit_yellow.png" />
                     <img className="absolute top-[23%] left-[5%] w-[90%] h-[60%]" src="./rooms/about/blurb.png" />
                 </div>
-                <div className={"absolute " + (isMobile ? "top-[15%] left-[10%] w-[60%] h-[25%]" : "top-[20%] left-[42%] w-[30%] h-[30%]")}>
+                <div className="absolute top-[20%] left-[42%] w-[30%] h-[30%]">
                     <img className="w-full h-full" src="./rooms/about/postit_red.png" />
                     <img className="absolute top-[23%] left-[10%] w-[80%] h-[10%]" src="./rooms/about/CreatedBy.png" />
                     <div id='credits' className="absolute top-[40%] left-[10%] w-[80%] flex flex-col justify-center text-black text-center font-serif">
@@ -63,13 +63,42 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                         <a href="https://www.instagram.com/sylathas/" target="_blank">Niccolo Abate</a>
                     </div>
                 </div>
-                <div className={"absolute " + (isMobile ? "top-[70%] left-[15%] h-[30%] w-[60%]" : "top-[80%] left-[43%] h-[15%] w-[30%]")}>
+                <div className="absolute top-[80%] left-[43%] h-[15%] w-[30%]">
                     <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
                     <p className="font-serif text-black absolute top-[23%] left-[10%] w-[80%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
                 </div>
-                <img className={"absolute " + (isMobile ? "top-[12%] left-[65%] w-[20%] h-[35%]" : "top-[30%] left-[68%] w-[10%] h-[60%]")} src="./rooms/about/keychain.png" />
-                <img className={"shopCategories absolute " + (isMobile ? "top-[35%] left-[10%] w-[30%] h-[20%]" : "top-[15%] left-[20%] w-[10%] h-[20%]")} src="./rooms/about/email.png" />
-                <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className={"shopCategories absolute " + (isMobile ? "top-[70%] left-[70%] w-[25%] h-[15%]" : "top-[20%] left-[30%] w-[10%] h-[20%]")} src="./rooms/about/instagram.png" /></a>
+                <img className="absolute top-[30%] left-[68%] w-[10%] h-[60%]" src="./rooms/about/keychain.png" />
+                <img className="shopCategories absolute top-[15%] left-[20%] w-[10%] h-[20%]" src="./rooms/about/email.png" />
+                <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="shopCategories absolute top-[20%] left-[30%] w-[10%] h-[20%]" src="./rooms/about/instagram.png" /></a>
+            </div >
+        ) : (
+            <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white flex flex-col " >
+                <img className="absolute w-full h-full" src={floorImage} alt={`Image of the active room: ${room}`}></img>
+                <div className="relative w-full h-full overflow-y-scroll z-3 text-black font-serif">
+                    <img className="rotate-[3deg] w-[90%] h-[13%] ml-[10%]" src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
+                    <div className="relative h-[40%] w-[85%] ml-[5%]">
+                        <p className="absolute w-[90%] h-[70%] left-[5%] top-[35%] z-4 scale-y-[140%]">Each issue we explore a different topic in the context of our echo-chamber times...
+                            <br />This website, on the desktop, lets everyone comment and modify all articles in the zine, allowing a diversity of opinions and a constant expansions of the texts as time passes by.
+                        </p>
+                        <img className="w-full h-full z-3" src="./rooms/about/postit_yellow.png" />
+                    </div>
+                    <div className="relative w-[60%] h-[25%] ml-[30%] mt-[10%]">
+                        <img className="absolute w-[80%] left-[10%] h-[10%] top-[25%]" src="./rooms/about/CreatedBy.png" />
+                        <div id='credits' className="absolute top-[40%] w-[80%] left-[10%] flex flex-col justify-center text-black text-center font-serif">
+                            <a href="https://www.instagram.com/cornjpg/" target="_blank">Cornelia Skrok</a>
+                            <a href="https://www.instagram.com/katiewxitz/" target="_blank">Katie Weitz</a>
+                            <a href="https://www.instagram.com/sylathas/" target="_blank">Niccolo Abate</a>
+                        </div>
+                        <img className="w-full h-full" src="./rooms/about/postit_red.png" />
+                    </div>
+                    <div className="relative h-[30%] w-[60%] ml-[20%] mt-[30%]">
+                        <p className="absolute w-[80%] left-[10%] top-[25%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
+                        <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
+                    </div>
+                    <img className="absolute top-[50%] left-[20%] w-[20%] h-[40%]" src="./rooms/about/keychain.png" />
+                    <img className="absolute top-[80%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" />
+                    <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="absolute top-[120%] left-[70%] w-[25%] h-[15%]" src="./rooms/about/instagram.png" /></a>
+                </div>
             </div>
         )
     }

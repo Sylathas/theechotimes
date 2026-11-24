@@ -76,12 +76,20 @@ body {
     transition: transform .3s;
 }
 
+.overlaydxMobile {
+    transform: translateX(121%);
+}
+
 .overlaydxClosed {
     transform: translateX(81%);
 }
 
 .overlaydxOpen {
     transform: translateX(50%);
+}
+
+.overlaysxMobile {
+    transform: translateX(-120%);
 }
 
 .overlaysxClosed {
@@ -104,12 +112,20 @@ body {
 /*BUTTONS*/
 /*-------*/
 
+.buttonsMobile {
+    transform: translateX(-120%);
+}
+
 .buttonsClosed {
     transform: translateX(-120%);
 }
 
 .buttonsOpen {
     transform: translateX(0%);
+}
+
+.loginMobile {
+    transform: translateX(140%);
 }
 
 .loginClosed {
@@ -331,6 +347,12 @@ body {
     color: black;
     transform: scale(200%, 100%);
     line-height: 2;
+}
+
+@media (max-width: 768px) {
+    #credits {
+        font-size: 8pt;
+    }
 }
 
 #credits a {

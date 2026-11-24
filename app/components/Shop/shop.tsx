@@ -145,12 +145,12 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                 <img id="crate" className={"absolute h-[90%] bottom-[5%] " + (isMobile ? "w-[90%] left-[5%]" : "w-[50%] left-[25%]")} src="rooms/shop/step2/crate.png"></img>
                 {categoryOpened === "zines" ?
                     <div>
-                        <div id='zine1' className={"shopCategories absolute " + (isMobile ? "h-[30%] w-[50%] left-[25%] top-[12%]" : "h-[40%] w-[18%] left-[30%] bottom-[30%]")} onClick={() => { openProduct(productData?.[3]) }}>
-                            <img className="w-full h-full" src={productData?.[3].cover}></img>
+                        <div id='zine1' className={"shopCategories flex flex-col items-center absolute " + (isMobile ? "h-[30%] w-[50%] left-[25%] top-[12%]" : "h-[40%] w-[18%] left-[30%] bottom-[30%]")} onClick={() => { openProduct(productData?.[3]) }}>
+                            <img className="w-auto h-full" src={productData?.[3].cover}></img>
                             <p className="font-serif">{productData?.[3].name}</p>
                         </div>
-                        <div id='zine2' className={"shopCategories absolute " + (isMobile ? "h-[30%] w-[50%] right-[25%] top-[48%]" : "h-[40%] w-[18%] right-[30%] bottom-[30%]")} onClick={() => { openProduct(productData?.[4]) }}>
-                            <img className="w-full h-full" src={productData?.[4].cover}></img>
+                        <div id='zine2' className={"shopCategories flex flex-col items-center absolute " + (isMobile ? "h-[30%] w-[50%] right-[25%] top-[48%]" : "h-[40%] w-[18%] right-[30%] bottom-[30%]")} onClick={() => { openProduct(productData?.[4]) }}>
+                            <img className="w-auto h-full" src={productData?.[4].cover}></img>
                             <p className="font-serif">{productData?.[4].name}</p>
                         </div>
                     </div>
@@ -174,21 +174,21 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
             {shopSection === 2 && (
                 <div id="section3" className="absolute inset-0 w-full h-full z-1000">
                     <div className="w-full h-full bg-black opacity-80"></div>
-                    {isMobile && <div id='productNameMobile' className="absolute w-full top-[3%] font-serif text-[20px] text-center text-black bg-white">{productOpen?.name}</div>}
-                    <div id='images' className={"absolute overflow-x-scroll flex flex-nowrap " + (isMobile ? "left-[15%] top-[10%] h-[50%] w-[70%]" : "left-[25%] bottom-[36%] h-[50%] w-[50%]")}>
+                    {isMobile && <div id='productNameMobile' className="absolute w-full top-[3%] font-serif text-[20px] text-center text-black bg-white px-[20px]">{productOpen?.name}</div>}
+                    <div id='images' className={"absolute overflow-x-scroll flex justify-center flex-nowrap " + (isMobile ? "left-[15%] top-[15%] h-[35%] w-[70%]" : "left-[25%] bottom-[36%] h-[50%] w-[50%]")}>
                         <img className="h-full w-auto mr-[5%] shrink-0" src={productOpen?.cover}></img>
                         {productOpen?.images?.map((image: string, index: number) => (
                             <img key={`${image}-${index}`} className="h-full w-auto mr-[5%] shrink-0" src={image} />
                         ))}
                     </div>
-                    <div id='productInfo' className={"absolute font-serif " + (isMobile ? "text-[20px] text-center w-full top-[62%]" : "left-[22%] bottom-[28%] text-[150%]")}>
+                    <div id='productInfo' className={"absolute font-serif " + (isMobile ? "text-[20px] text-center w-full top-[52%]" : "left-[22%] bottom-[28%] text-[150%]")}>
                         {!isMobile && productOpen?.name + "-"} {formatPrice(productOpen?.price ?? 0)}
                     </div>
-                    <div id='description' className={"absolute " + (isMobile ? "h-[15%] w-[70%] left-[15%] top-[65%]" : "h-[20%] w-[40%] left-[22%] bottom-[5%]")}>
+                    <div id='description' className={"absolute " + (isMobile ? "h-[25%] w-[70%] left-[15%] top-[55%]" : "h-[20%] w-[40%] left-[22%] bottom-[5%]")}>
                         <img className="w-full h-full" src="rooms/shop/step3/descriptionbox.png" />
                         <p className="absolute w-[90%] h-[80%] top-[20%] left-[3%] pb-[10%] font-serif text-black overflow-y-scroll">{productOpen?.description}</p>
                     </div>
-                    <img className={"authbutton absolute " + (isMobile ? "h-[7.5%] w-[50%] left-[25%] top-[82%]" : "h-[10%] w-[10%] right-[25%] bottom-[13%]")} src="rooms/shop/step3/addtobasket.png"
+                    <img className={"authbutton absolute " + (isMobile ? "h-[7.5%] w-[35%] left-[32.5%] top-[82%]" : "h-[10%] w-[10%] right-[25%] bottom-[13%]")} src="rooms/shop/step3/addtobasket.png"
                         style={{ opacity: outOfStock ? 0.4 : 1 }} onClick={addToBasket} />
                     {outOfStock && (
                         <p className="absolute right-[25%] bottom-[9%] font-serif">
@@ -197,7 +197,7 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                     )}
                 </div>
             )}
-            {shopSection === 2 && isMobile && <img className="absolute w-[25%] h-[5%] left-[37.5%] bottom-[3%] z-1001" onClick={goBack} src="/rooms/overlay/login/modal/buttons/close_inactive.png" />}
+            {shopSection === 2 && isMobile && <img className="absolute w-[20%] h-[5%] left-[40%] bottom-[3%] z-1001" onClick={goBack} src="/rooms/overlay/login/modal/buttons/close_inactive.png" />}
             <div id="cart">
                 <div id='cartButton' className={'authbutton absolute bottom-[3%] ' + (isMobile ? "w-[60%] left-[20%] h-[8%]" : "w-[20%] left-[40%] h-[10%]")} onClick={() => setCartOpen(open => !open)}>
                     <img className="w-full h-full" src="rooms/shop/Cart.png" />

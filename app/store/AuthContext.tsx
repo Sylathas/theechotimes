@@ -79,7 +79,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const redeemCode = async (zineCode: string) => {
         if (!currentUser) throw new Error("You need to be logged in to redeem a code.");
-        await redeemZineCode(currentUser.uid, zineCode);
+        await redeemZineCode(zineCode);
     };
 
     //create Auth Values
