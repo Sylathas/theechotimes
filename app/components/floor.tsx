@@ -68,7 +68,7 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                     <p className="font-serif text-black absolute top-[23%] left-[10%] w-[80%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
                 </div>
                 <img className="absolute top-[30%] left-[68%] w-[10%] h-[60%]" src="./rooms/about/keychain.png" />
-                <img className="shopCategories absolute top-[15%] left-[20%] w-[10%] h-[20%]" src="./rooms/about/email.png" />
+                <a href="mailto:info@theechotimes.club" target="_blank"><img className="shopCategories absolute top-[15%] left-[20%] w-[10%] h-[20%]" src="./rooms/about/email.png" /></a>
                 <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="shopCategories absolute top-[20%] left-[30%] w-[10%] h-[20%]" src="./rooms/about/instagram.png" /></a>
             </div >
         ) : (
@@ -95,9 +95,9 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                         <p className="absolute w-[80%] left-[10%] top-[25%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
                         <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
                     </div>
-                    <img className="absolute top-[50%] left-[20%] w-[20%] h-[40%]" src="./rooms/about/keychain.png" />
-                    <a href="mailto:info@theechotimes.club" target="_blank"><img className="absolute top-[80%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" /></a>
-                    <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="absolute top-[120%] left-[70%] w-[25%] h-[15%]" src="./rooms/about/instagram.png" /></a>
+                    <img className="absolute top-[60%] left-[20%] w-[20%] h-[40%]" src="./rooms/about/keychain.png" />
+                    <a href="mailto:info@theechotimes.club" target="_blank"><img className="absolute top-[90%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" /></a>
+                    <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="absolute top-[110%] left-[70%] w-[25%] h-[15%]" src="./rooms/about/instagram.png" /></a>
                 </div>
             </div>
         )
