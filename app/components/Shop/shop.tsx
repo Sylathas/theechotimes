@@ -216,7 +216,7 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                             <>
                                 <div id='cartProducts' className="absolute left-[5%] top-[5%] h-[70%] w-[90%] flex flex-col overflow-y-auto">
                                     {basket.map((product: any) => (
-                                        <div key={product.id} className={"h-[20%] w-full mb-[50%] flex shrink-0 text-black font-serif items-center justify-between " + (isMobile && "flex-col")}>
+                                        <div key={product.id} className={"h-[20%] w-full flex shrink-0 text-black font-serif items-center justify-between " + (isMobile && "flex-col mb-[50%]")}>
                                             <img src={product.cover} className="h-full w-auto" />
                                             <span>{product.name}{product.quantity > 1 && ` ×${product.quantity}`}</span>
                                             <span>{formatPrice(product.price * product.quantity)}</span>
