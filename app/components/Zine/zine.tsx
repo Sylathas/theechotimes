@@ -206,7 +206,6 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
                         <img className="absolute w-[50%] h-[50%] left-[23%] top-[25%] pointer-events-none" src={map} />
                         <div id="bathroom" className="floor floor1 absolute w-[13%] h-[32%] left-[60%] top-[24%]" onClick={() => setArticleContent(1, 0, 0)}></div>
                         <div id="office" className="floor floor1 absolute w-[23%] h-[20%] left-[40%] top-[55%]" onClick={() => setArticleContent(2, 0, 0)}></div>
-                        <div id="bookshelf" className="floor floor1 absolute w-[10%] h-[20%] left-[63%] top-[55%]"></div>
                         <div id="livingRoom" className="floor floor1" onClick={() => setArticleContent(0, 0, 0)}>
                             <div className="absolute w-[30%] h-[30%] left-[30%] top-[25%]"></div>
                             <div className="absolute w-[10%] h-[20%] left-[30%] top-[55%]"></div>

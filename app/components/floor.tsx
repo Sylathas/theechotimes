@@ -34,7 +34,7 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                     <img id="liftDoorRight2" className="liftdoorfloor absolute h-[100%] w-[52%] right-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorRight_2.png"></img>
                     <img id="liftDoorLeft1" className="liftdoorfloor absolute h-[100%] w-[35%] left-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorLeft_1.png"></img>
                     <img id="liftDoorRight1" className="liftdoorfloor absolute h-[100%] w-[35%] right-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorRight_1.png"></img>
-                    {isLocked && <img id="lockedDoor" className="absolute w-[50%] h-[50%] left-[25%] top-[25%]" src="./rooms/overlay/login/logged_out.png" />}
+                    {isLocked && <img id="lockedDoor" className="absolute w-[50%] h-[50%] left-[25%] top-[25%]" src="./rooms/zine/ZineLocked.png" />}
                 </div>
             </div >
         )
