@@ -74,10 +74,10 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
         ) : (
             <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white flex flex-col " >
                 <img className="absolute w-full h-full" src={floorImage} alt={`Image of the active room: ${room}`}></img>
-                <div className="relative w-full h-full overflow-y-scroll z-3 text-black font-serif">
+                <div className="relative w-full h-full overflow-y-scroll overflow-x-hidden z-3 text-black font-serif">
                     <img className="rotate-[3deg] w-[90%] h-[13%] ml-[10%]" src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
                     <div className="relative h-[40%] w-[85%] ml-[5%]">
-                        <p className="absolute w-[90%] h-[70%] left-[5%] top-[35%] z-4 scale-y-[140%]">Each issue we explore a different topic in the context of our echo-chamber times...
+                        <p className="absolute w-[90%] h-[70%] left-[5%] top-[35%] z-4">Each issue we explore a different topic in the context of our echo-chamber times...
                             <br />This website, on the desktop, lets everyone comment and modify all articles in the zine, allowing a diversity of opinions and a constant expansions of the texts as time passes by.
                         </p>
                         <img className="w-full h-full z-3" src="./rooms/about/postit_yellow.png" />
@@ -96,7 +96,7 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                         <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
                     </div>
                     <img className="absolute top-[50%] left-[20%] w-[20%] h-[40%]" src="./rooms/about/keychain.png" />
-                    <img className="absolute top-[80%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" />
+                    <a href="sendto:info@theechotimes.club" target="_blank"><img className="absolute top-[80%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" /></a>
                     <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="absolute top-[120%] left-[70%] w-[25%] h-[15%]" src="./rooms/about/instagram.png" /></a>
                 </div>
             </div>

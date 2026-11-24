@@ -122,7 +122,7 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                     zone,
                 }),
             });
-            const data = await res.json();
+            const data = await res.json().catch(() => ({}));
             if (!res.ok) throw new Error(data.error);
             window.location.href = data.url;
         } catch (error) {
