@@ -155,15 +155,15 @@ export default function Shop({ shopSection, setShopSection, setShopOn, shopOn, i
                         </div>
                     </div>
                     : <div className={isMobile ? "absolute w-full h-[70%] top-[10%] overflow-y-scroll flex flex-col items-center justify-center" : ""}>
-                        <div id='tankTopPink' className={"shopCategories " + (isMobile ? "h-[30%] w-[30%] mt-[60%]" : "absolute h-[30%] w-[15%] left-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[2]) }}>
+                        <div id='tankTopPink' className={"shopCategories flex flex-col items-center " + (isMobile ? "h-[30%] w-[30%] mt-[60%]" : "absolute h-[30%] w-[15%] left-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[2]) }}>
                             <img className="w-auto h-full" src={productData?.[2].cover}></img>
                             <p className="font-serif">{productData?.[2].name}</p>
                         </div>
-                        <div id='teeGreenM' className={"shopCategories " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[1]) }}>
+                        <div id='teeGreenM' className={"shopCategories flex flex-col items-center " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[30%] bottom-[60%]")} onClick={() => { openProduct(productData?.[1]) }}>
                             <img className="w-auto h-full" src={productData?.[1].cover}></img>
                             <p className="font-serif">{productData?.[1].name}</p>
                         </div>
-                        <div id='teeGreenL' className={"shopCategories " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[40%] bottom-[25%]")} onClick={() => { openProduct(productData?.[0]) }}>
+                        <div id='teeGreenL' className={"shopCategories flex flex-col items-center " + (isMobile ? "h-[30%] w-[50%] mt-[30%]" : "absolute h-[30%] w-[15%] right-[40%] bottom-[25%]")} onClick={() => { openProduct(productData?.[0]) }}>
                             <img className="w-auto h-full" src={productData?.[0].cover}></img>
                             <p className="font-serif">{productData?.[0].name}</p>
                         </div>
