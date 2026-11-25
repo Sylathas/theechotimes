@@ -9,10 +9,11 @@ interface Props {
     isMobile: boolean;
 }
 
-type Zone = "domestic" | "europe" | "world";
+type Zone = "local" | "domestic" | "europe" | "world";
 
 // For display only: the server charges the prices in app/api/checkout/route.ts, so keep the two in step
 const SHIPPING: Record<Zone, { label: string; price: number }> = {
+    local: { label: "Hand-Delivery", price: 0 },
     domestic: { label: "UK", price: 350 },
     europe: { label: "Europe", price: 700 },
     world: { label: "Rest of the world", price: 1200 },

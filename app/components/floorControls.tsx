@@ -42,8 +42,8 @@ export default function FloorControls({ room, roomChange, goBack, setLogin, isMo
                     <img id="floorNumberOutline" className="absolute top-[0] left-[10%] w-[80%] h-[30%]" src="/rooms/overlay/overlay_screenNumber.png"></img>
                 </>}
                 <div id='buttons' className={'absolute rotate-1 flex flex-col justify-between ' + (isMobile ? "left-[5%] top-[43%] w-[80%] h-[58%]" : "left-[2.5%] top-[50%] w-[46%] h-[50%]")}>
-                    <img className="w-full h-[40%] m-[5%]" src={buttonUpSrc} alt='Lift floor-up button.' onClick={() => roomChange(true)} onMouseLeave={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_inactive.png")} onMouseDown={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_active.png")}></img>
-                    <img className="w-full h-[40%] m-[5%]" src={buttonDownSrc} alt='Lift floor-down button.' onClick={() => roomChange(false)} onMouseLeave={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_inactive.png")} onMouseDown={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_active.png")}></img>
+                    <img className="w-full h-[40%] m-[5%]" src={buttonUpSrc} alt='Lift floor-up button.' onClick={() => roomChange(true)} onMouseUp={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_inactive.png")} onMouseDown={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_active.png")}></img>
+                    <img className="w-full h-[40%] m-[5%]" src={buttonDownSrc} alt='Lift floor-down button.' onClick={() => roomChange(false)} onMouseUp={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_inactive.png")} onMouseDown={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_active.png")}></img>
                 </div>
                 <img className={"absolute " + (isMobile ? "top-[8%] left-[32%] w-[40%] h-[15%]" : "top-[9%] left-[10%] w-[36%] h-[15%]")} src={floorNumber}></img>
             </div>
@@ -54,7 +54,7 @@ export default function FloorControls({ room, roomChange, goBack, setLogin, isMo
                 </div>
                 <div id='back' className="absolute z-5 right-[1.5%] top-[40%] w-[10%] h-[15%]" onClick={() => goBack()}>
                     <img id="backOutline" className="w-full h-full" src="/rooms/overlay/overlay_back.png"></img>
-                    <img className="absolute left-[10%] top-[10%] h-[80%] w-[90%]" src={buttonBackSrc} alt='Back button.' onMouseLeave={() => setButtonBackSrc("/rooms/overlay/buttons/back_inactive.png")} onMouseDown={() => setButtonBackSrc("/rooms/overlay/buttons/back_active.png")}></img>
+                    <img className="absolute left-[10%] top-[10%] h-[80%] w-[90%]" src={buttonBackSrc} alt='Back button.' onMouseUp={() => setButtonBackSrc("/rooms/overlay/buttons/back_inactive.png")} onMouseDown={() => setButtonBackSrc("/rooms/overlay/buttons/back_active.png")}></img>
                 </div>
             </>}
         </>

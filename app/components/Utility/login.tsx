@@ -226,14 +226,16 @@ export default function Auth({ setLogin }: Props) {
                         <p id="account_zine2" className="authinput absolute h-[65%] w-[40%] left-[60%] top-[-2%] font-serif text-black">TET2<img className="absolute w-[10%] h-[50%] left-[40%] top-[-2%]" src={profile?.zine2 ? "/rooms/overlay/login/logged_in.png" : "/rooms/overlay/login/logged_out.png"} /></p>
                     </div>
                     <img src="rooms/overlay/login/modal/bars/long2.png" className="absolute h-[5%] w-[90%] left-[5%] top-[55%]" />
-                    <input
-                        type="text"
-                        id="signup_code"
-                        className="authinput absolute h-[5%] w-[88%] left-[7%] top-[54.5%] font-serif"
-                        name="zinecode"
-                        value={zineCode}
-                        onChange={(e) => setZineCode(e.target.value)}
-                    />
+                    <div id="signup_code" className="authinput absolute h-[5%] w-[88%] left-[7%] top-[54.5%] font-serif">
+                        <input
+                            type="text"
+                            className="w-full h-full"
+                            name="zinecode"
+                            value={zineCode}
+                            onChange={(e) => setZineCode(e.target.value)}
+                        />
+                        <img id="code_tooltip" src="./rooms/overlay/login/codePopup.png" className="absolute bottom-[110%] left-[10%] w-[50%] h-[300%]" />
+                    </div>
                     <img src="rooms/overlay/login/modal/buttons/back.png" className="authbutton absolute w-[30%] h-[15%] left-[8%] bottom-[22%]" onClick={() => { setSection([section[1], 4]) }} />
                     <img src="rooms/overlay/login/modal/buttons/add-code.png" className="authbutton absolute w-[40%] h-[15%] left-[50%] bottom-[23%]" onClick={handleRedeemCode} />
                 </div>
