@@ -12,7 +12,7 @@ export function rangeFromOffsets(container: HTMLElement, start: number, end: num
 
     while ((node = walker.nextNode())) {
         const length = node.textContent?.length ?? 0;
-        if (!foundStart && start <= position + length) {
+        if (!foundStart && start < position + length) {
             range.setStart(node, start - position);
             foundStart = true;
         }
@@ -74,7 +74,33 @@ export function useCommentHighlights(
 export function focusComment(container: HTMLElement, comment: any, scroll = true): boolean {
     const range = getCommentRange(container, comment);
     if (!range) return false;
-    if (supportsHighlights()) CSS.highlights.set("comment-active", new Highlight(range));
-    if (scroll) range.startContainer.parentElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (supportsHighlights()) {
+        const active = new Highlight(range);
+        active.priority = 1; // drawn on top of the other comment highlights where they overlap
+        CSS.highlights.set("comment-active", active);
+    }
+    if (scroll) scrollToRange(container, range);
     return true;
+}
+
+function scrollToRange(container: HTMLElement, range: Range) {
+    const rect = Array.from(range.getClientRects()).find((r) => r.width > 0 && r.height > 0)
+        ?? range.getBoundingClientRect();
+    const scroller = findScrollParent(container);
+    if (!scroller) {
+        range.startContainer.parentElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+    }
+    const offset = rect.top - scroller.getBoundingClientRect().top;
+    scroller.scrollTo({ top: scroller.scrollTop + offset - scroller.clientHeight / 3, behavior: "smooth" });
+}
+
+function findScrollParent(element: HTMLElement): HTMLElement | null {
+    let node: HTMLElement | null = element;
+    while (node) {
+        const { overflowY } = getComputedStyle(node);
+        if ((overflowY === "auto" || overflowY === "scroll") && node.scrollHeight > node.clientHeight) return node;
+        node = node.parentElement;
+    }
+    return null;
 }

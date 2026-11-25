@@ -24,7 +24,7 @@ interface ArticleText {
     title: string;
     version: number;
     text: string;
-    bibliography: [any];
+    bibliography: string[];
     author: string;
 }
 
@@ -37,6 +37,8 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
     const mapTexts: Record<number, string> = { 1: "/rooms/maps/1/map1_Text.png", 2: "/rooms/maps/2/map2_Text.png" };
     const map = mapImages[room];
     const mapText = mapTexts[room];
+
+    const pdfLink = room === 1 ? "https://firebasestorage.googleapis.com/v0/b/theechotimes-71ddb.firebasestorage.app/o/zinesPDFs%2FTheEchoTimes01_compressed.pdf?alt=media&token=585b8227-f621-498b-9937-68074f6bba76" : "https://firebasestorage.googleapis.com/v0/b/theechotimes-71ddb.firebasestorage.app/o/zinesPDFs%2FEchoTimes2_compressed.pdf?alt=media&token=608c5e9d-ef66-4c4a-8dcd-20a269752b43"
 
     //article states
     const [articleOpen, setArticleOpen] = useState<number>(1)
@@ -69,6 +71,7 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
     //Modify
     const { editor, actions, getMarkdown } = useMarkdownEditor(articleText?.text ?? "", isModifying);
     const [saving, setSaving] = useState<boolean>(false)
+    const [draftBibliography, setDraftBibliography] = useState<string[]>([]);
 
     const accent = room === 1
         ? { text: "text-red-500", scrollbar: "scrollbar-thumb-red-500" }
@@ -83,6 +86,10 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
         }
         getZineData()
     }, [])
+
+    useEffect(() => {
+        if (isModifying) setDraftBibliography(articleText?.bibliography ?? []);
+    }, [isModifying, articleText?.bibliography]);
 
     const toggleTools = () => setToolsOpen(open => !open);
 
@@ -130,12 +137,25 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
         if (sidePanel !== "comments" || !container || !window.getSelection()?.isCollapsed) return;
         const offset = offsetFromPoint(container, e.clientX, e.clientY);
         const comments = modificationsData?.[modification]?.comments ?? [];
-        const index = offset === null ? -1 : comments.findIndex((c: any) =>
-            typeof c.comment_reference === "object" && offset >= c.comment_reference.start && offset <= c.comment_reference.end);
+        const index = offset === null ? -1 : comments.reduce((best: number, c: any, i: number) => {
+            const ref = c.comment_reference;
+            if (typeof ref !== "object" || offset < ref.start || offset > ref.end) return best;
+            if (best === -1) return i;
+            const bestRef = comments[best].comment_reference;
+            return ref.end - ref.start < bestRef.end - bestRef.start ? i : best;
+        }, -1);
         setActiveComment(index === -1 ? null : index);
         if (index === -1) CSS.highlights?.delete("comment-active");
         else focusComment(container, comments[index], false);
     };
+
+    const updateReference = (index: number, value: string) =>
+        setDraftBibliography((list) => list.map((reference, i) => (i === index ? value : reference)));
+
+    const removeReference = (index: number) =>
+        setDraftBibliography((list) => list.filter((_, i) => i !== index));
+
+    const addReference = () => setDraftBibliography((list) => [...list, ""]);
 
     const handleSave = async () => {
         if (!user || saving) return;
@@ -143,7 +163,7 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
         try {
             const version = versionsData![versionOpen];
             const ids = { zine: zineData![room - 1].id, article: articlesData![articleOpen - 1].id, version: version.id };
-            const result = await saveEdit(ids, version, getMarkdown(), user.uid, profile?.displayName ?? "", articleText?.bibliography);
+            const result = await saveEdit(ids, version, getMarkdown(), user.uid, profile?.displayName ?? "", draftBibliography.map((reference) => reference.trim()).filter(Boolean));
             setIsModifying(false);
             await setArticleContent(articleOpen - 1, 0, 0, result);
         } catch (error) {
@@ -233,7 +253,7 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
                         </>
                     )
                 }
-
+                <a href={pdfLink} target="_blank"><img className="authbutton absolute w-[20%] h-[10%] bottom-[5%] left-[20%]" src="./rooms/zine/downloadPDF.png" /></a>
             </div >
         )
     } else {
@@ -252,9 +272,31 @@ export default function Zine({ room, section, changeSection, isModifying, setIsM
                                 ? <EditorContent editor={editor} className="font-serif" />
                                 : <Markdown remarkPlugins={[remarkGfm]}>{articleText?.text}</Markdown>}
                         </div>
-                        {articleText?.bibliography?.map((reference, index) => {
-                            return <p key={index} className={"font-serif italic mr-[5%] ml-[10%] my-[2%] " + accent.text}>{index + 1}: {reference}</p>
-                        })}
+                        {isModifying ? (
+                            <div id="bibliographyEditor" className="mx-[5%] my-[3%] font-serif">
+                                <p className={"italic mb-[1%] " + accent.text}>Bibliography</p>
+                                {draftBibliography.map((reference, index) => (
+                                    <div key={index} className="flex items-start gap-2 mb-[1%]">
+                                        <span className={accent.text}>{index + 1}:</span>
+                                        <textarea
+                                            value={reference}
+                                            rows={2}
+                                            onChange={(e) => updateReference(index, e.target.value)}
+                                            className="flex-1 bg-transparent border border-black p-1 resize-y"
+                                            placeholder="Author, title, year"
+                                        />
+                                        <button onClick={() => removeReference(index)} aria-label={`Remove reference ${index + 1}`}>
+                                            <img src="rooms/overlay/login/modal/error.png" className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                                <button onClick={addReference} className="underline">Add reference</button>
+                            </div>
+                        ) : (
+                            articleText?.bibliography?.map((reference, index) => (
+                                <p key={index} className={"font-serif italic mr-[5%] ml-[10%] my-[2%] " + accent.text}>{index + 1}: {reference}</p>
+                            ))
+                        )}
                     </div>
                 </div >
                 <CommentPopup containerRef={articleRef} enabled={!!user && !isModifying} onSubmit={handleAddComment} />
@@ -354,7 +396,7 @@ function SideBarContent({ type, versions, modificationData, modification, room, 
                     <img className="absolute inset-0 w-full h-full" src={"./rooms/zine/commentBubbles/comment" + Math.floor(Math.random() * 3).toString() + ".png"} />
                     <p className="relative p-[8%]">{value.comment_text}</p>
                     {value.comment_reference.username && <p className="pl-[8%] pb-[5%] relative font-serif">{value.authorName}</p>}
-                    {user?.uid === value.author && < img id="closeComment" className="absolute w-[10%] h-[30px] right-[0] top-[-15%]" src={closeSrc}
+                    {user?.uid === value.author && < img id="closeComment" className="absolute w-[10%] h-[30px] right-[0] top-[-5%]" src={closeSrc}
                         onClick={(e) => { e.stopPropagation(); handleRemoveComment(value) }}
                         onMouseLeave={() => setCloseSrc("/rooms/overlay/login/modal/buttons/close_inactive.png")}
                         onMouseDown={() => setCloseSrc("/rooms/overlay/login/modal/buttons/close_active.png")} />}

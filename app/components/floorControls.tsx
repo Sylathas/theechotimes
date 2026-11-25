@@ -36,16 +36,16 @@ export default function FloorControls({ room, roomChange, goBack, setLogin, isMo
 
     return (
         <>
-            <div id='floorControls' className={'overlayLiftDoorsTwo absolute z-5 left-[2.5%] top-[30%] w-[25%] h-[35%] ' + (isMobile ? ("buttons" + menuOpen[1]) : "")}>
+            <div id='floorControls' className={'overlayLiftDoorsTwo absolute z-5 left-[2.5%] top-[30%] h-[35%] ' + (isMobile ? ("w-[25%] buttons" + menuOpen[1]) : "w-[12.5%]")}>
                 {isMobile && <>
                     <img id="floorButtonsOutline" className='absolute left-[0] top-[40.5%] w-[100%] h-[63%] rotate-1' src="/rooms/overlay/overlay_LiftButtons.png"></img>
                     <img id="floorNumberOutline" className="absolute top-[0] left-[10%] w-[80%] h-[30%]" src="/rooms/overlay/overlay_screenNumber.png"></img>
                 </>}
-                <div id='buttons' className={'absolute rotate-1 flex flex-col justify-between ' + (isMobile ? "left-[5%] top-[43%] w-[75%] h-[58%]" : "left-[2.5%] top-[50%] w-[23%] h-[50%]")}>
+                <div id='buttons' className={'absolute rotate-1 flex flex-col justify-between ' + (isMobile ? "left-[5%] top-[43%] w-[80%] h-[58%]" : "left-[2.5%] top-[50%] w-[46%] h-[50%]")}>
                     <img className="w-full h-[40%] m-[5%]" src={buttonUpSrc} alt='Lift floor-up button.' onClick={() => roomChange(true)} onMouseLeave={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_inactive.png")} onMouseDown={() => setButtonUpSrc("/rooms/overlay/buttons/FloorUp_active.png")}></img>
                     <img className="w-full h-[40%] m-[5%]" src={buttonDownSrc} alt='Lift floor-down button.' onClick={() => roomChange(false)} onMouseLeave={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_inactive.png")} onMouseDown={() => setButtonDownSrc("/rooms/overlay/buttons/FloorDown_active.png")}></img>
                 </div>
-                <img className={"absolute " + (isMobile ? "top-[8%] left-[30%] w-[40%] h-[15%]" : "top-[9%] left-[5%] w-[18%] h-[15%]")} src={floorNumber}></img>
+                <img className={"absolute " + (isMobile ? "top-[8%] left-[32%] w-[40%] h-[15%]" : "top-[9%] left-[10%] w-[36%] h-[15%]")} src={floorNumber}></img>
             </div>
             {!isMobile && <>
                 <div id='login' className="overlayLiftDoorsTwo absolute z-5 right-[2.5%] top-[10%] w-[8%] h-[14%]" onClick={() => { setLogin(true) }}>

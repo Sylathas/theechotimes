@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import Shop from "./Shop/shop";
+import { Guestbook, VisitorCounter } from "./Utility/guestbook";
 
 interface Props {
     room: number;
@@ -24,6 +25,8 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
     const floorImages: Record<number, string> = { 1: "/rooms/floors/Floor1.png", 2: "/rooms/floors/Floor2.png", 3: "/rooms/floors/Shop.png", 4: "/rooms/floors/about.png" };
     const floorImage = floorImages[room];
 
+    const lockImage = user ? "./rooms/zine/ZineLocked_logged.png" : "./rooms/zine/ZineLocked_unlogged.png"
+
     if (room > 0 && room < 3) {
         return (
             <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] image-pixelated">
@@ -34,7 +37,7 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                     <img id="liftDoorRight2" className="liftdoorfloor absolute h-[100%] w-[52%] right-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorRight_2.png"></img>
                     <img id="liftDoorLeft1" className="liftdoorfloor absolute h-[100%] w-[35%] left-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorLeft_1.png"></img>
                     <img id="liftDoorRight1" className="liftdoorfloor absolute h-[100%] w-[35%] right-[0] top-[0]" src="rooms/floors/floorDoor/FloorDoorRight_1.png"></img>
-                    {isLocked && <img id="lockedDoor" className="absolute w-[50%] h-[50%] left-[25%] top-[25%]" src="./rooms/zine/ZineLocked.png" />}
+                    {isLocked && <img id="lockedDoor" className="absolute w-[70%] h-[50%] left-[15%] top-[25%]" src={lockImage} />}
                 </div>
             </div >
         )
@@ -47,29 +50,36 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
         )
     } else if (room === 4) {
         return !isMobile ? (
-            <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white overflow-scroll-x" >
+            <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white flex flex-col" >
                 <img className="absolute w-full h-full" src={floorImage} alt={`Image of the active room: ${room}`}></img>
-                <img className="absolute rotate-[3deg] top-[3%] left-[25%] w-[50%] h-[15%]" src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
-                <div className="absolute top-[48%] left-[20%] h-[35%] w-[50%]">
-                    <img className="w-full h-full" src="./rooms/about/postit_yellow.png" />
-                    <img className="absolute top-[23%] left-[5%] w-[90%] h-[60%]" src="./rooms/about/blurb.png" />
-                </div>
-                <div className="absolute top-[20%] left-[42%] w-[30%] h-[30%]">
-                    <img className="w-full h-full" src="./rooms/about/postit_red.png" />
-                    <img className="absolute top-[23%] left-[10%] w-[80%] h-[10%]" src="./rooms/about/CreatedBy.png" />
-                    <div id='credits' className="absolute top-[40%] left-[10%] w-[80%] flex flex-col justify-center text-black text-center font-serif">
-                        <a href="https://www.instagram.com/cornjpg/" target="_blank">Cornelia Skrok</a>
-                        <a href="https://www.instagram.com/katiewxitz/" target="_blank">Katie Weitz</a>
-                        <a href="https://www.instagram.com/sylathas/" target="_blank">Niccolo Abate</a>
+                <div className="relative w-full h-full overflow-y-scroll overflow-x-hidden z-3 text-black font-serif">
+                    <img className="rotate-[3deg] mt-[2%] ml-[25%] w-[50%] h-[15%]" src="./rooms/about/logo.png" alt={`The Echo Times logo`} />
+                    <div className="relative mt-[2vh] ml-[42%] w-[30%] h-[30%]">
+                        <img className="w-full h-full" src="./rooms/about/postit_red.png" />
+                        <img className="absolute top-[23%] left-[10%] w-[80%] h-[10%]" src="./rooms/about/CreatedBy.png" />
+                        <div id='credits' className="absolute top-[40%] left-[10%] w-[80%] flex flex-col justify-center text-black text-center font-serif">
+                            <a href="https://www.instagram.com/cornjpg/" target="_blank">Cornelia Skrok</a>
+                            <a href="https://www.instagram.com/katiewxitz/" target="_blank">Katie Weitz</a>
+                            <a href="https://www.instagram.com/sylathas/" target="_blank">Niccolo Abate</a>
+                        </div>
                     </div>
+                    <div className="relative ml-[20%] h-[35%] w-[50%]">
+                        <img className="absolute top-[23%] left-[5%] w-[90%] h-[60%]" src="./rooms/about/blurb.png" />
+                        <img className="w-full h-full" src="./rooms/about/postit_yellow.png" />
+                    </div>
+                    <div className="relative mt-[0vh] ml-[43%] h-[15%] w-[30%]">
+                        <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
+                        <p className="font-serif text-black absolute top-[23%] left-[10%] w-[80%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
+                    </div>
+                    <div className="relative ml-[25%] h-[20%] w-[30%] mb-[10vh]">
+                        <img className='absolute left-[20%] top-[20%] h-[20%] w-[60%]' src="./rooms/about/thanks.png" />
+                        <VisitorCounter />
+                        <img className="w-full h-full" src="./rooms/about/postit_red.png" />
+                    </div>
+                    <img className="absolute top-[30%] left-[68%] w-[10%] h-[60%]" src="./rooms/about/keychain.png" />
+                    <a href="mailto:info@theechotimes.club" target="_blank"><img className="shopCategories absolute top-[15%] left-[20%] w-[10%] h-[20%]" src="./rooms/about/email.png" /></a>
+                    <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="shopCategories absolute top-[20%] left-[30%] w-[10%] h-[20%]" src="./rooms/about/instagram.png" /></a>
                 </div>
-                <div className="absolute top-[80%] left-[43%] h-[15%] w-[30%]">
-                    <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
-                    <p className="font-serif text-black absolute top-[23%] left-[10%] w-[80%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
-                </div>
-                <img className="absolute top-[30%] left-[68%] w-[10%] h-[60%]" src="./rooms/about/keychain.png" />
-                <a href="mailto:info@theechotimes.club" target="_blank"><img className="shopCategories absolute top-[15%] left-[20%] w-[10%] h-[20%]" src="./rooms/about/email.png" /></a>
-                <a href="https://www.instagram.com/theechotimes/" target="_blank"><img className="shopCategories absolute top-[20%] left-[30%] w-[10%] h-[20%]" src="./rooms/about/instagram.png" /></a>
             </div >
         ) : (
             <div id='activeRoom' className="absolute w-full h-full left-[0] top-[0] z-2 image-pixelated bg-white flex flex-col " >
@@ -94,6 +104,11 @@ export default function Floor({ room, zineOn, setShopOn, shopOn, shopSection, se
                     <div className="relative h-[30%] w-[60%] ml-[20%] mt-[30%]">
                         <p className="absolute w-[80%] left-[10%] top-[25%]">Want to contribute? Have any questions? Hate us? Send us an email or dm with the buttons around!</p>
                         <img className="w-full h-full" src="./rooms/about/postit_blue.png" />
+                    </div>
+                    <div className="relative ml-[45%] h-[30%] w-[60%] mb-[10vh]">
+                        <img className='absolute left-[20%] top-[20%] h-[20%] w-[60%]' src="./rooms/about/thanks.png" />
+                        <VisitorCounter isMobile={isMobile} />
+                        <img className="w-full h-full" src="./rooms/about/postit_red.png" />
                     </div>
                     <img className="absolute top-[60%] left-[20%] w-[20%] h-[40%]" src="./rooms/about/keychain.png" />
                     <a href="mailto:info@theechotimes.club" target="_blank"><img className="absolute top-[90%] left-[50%] w-[30%] h-[20%]" src="./rooms/about/email.png" /></a>
